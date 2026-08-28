@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch Trainer — Themen</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📖</text></svg>">
+<style>
+ :root{--bg:#0f1420;--card:#1a2233;--card2:#22304a;--accent:#4fc3f7;--accent2:#81c784;--txt:#e8eaf0;--muted:#8a93a8;--warn:#ffb74d;--danger:#e57373}
+ body[data-theme="light"]{--bg:#f4f6fa;--card:#ffffff;--card2:#e3e9f2;--accent:#0277bd;--accent2:#2e7d32;--txt:#1c2333;--muted:#5c6577;--warn:#b26a00;--danger:#c62828}
+ body[data-theme="light"] .notesBox{background:#eef5ee;border-color:#c8dcc8}
+ body[data-theme="light"] .notesBox textarea{background:#ffffff;border-color:#c8dcc8;color:#1c2333}
+ body[data-theme="light"] #storageBar{background:#e9edf4}
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;padding-bottom:40px}
+ header{padding:12px;text-align:center;border-bottom:1px solid #2a3348}
+ header h1{font-size:1.1rem;color:var(--accent)}
+ header .sub{font-size:.72rem;color:var(--muted);margin-top:2px}
+ #storageBar{display:flex;gap:6px;align-items:center;justify-content:center;padding:8px 12px;font-size:.75rem;background:#141b2b;border-bottom:1px solid #2a3348;flex-wrap:wrap}
+ #storageBar .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+ #storageBar button{padding:6px 10px;border:none;border-radius:8px;background:var(--card2);color:var(--txt);cursor:pointer;font-size:.72rem}
+ nav{display:flex;gap:5px;padding:10px;overflow-x:auto}
+ nav button{padding:10px 14px;border:none;border-radius:10px;background:var(--card);color:var(--muted);font-size:.78rem;cursor:pointer;white-space:nowrap;flex-shrink:0}
+ nav button.active{background:var(--accent);color:#04121f;font-weight:700}
+ nav button.addTheme{background:var(--card2);color:var(--accent2);font-weight:700}
+ main{padding:12px;max-width:760px;margin:0 auto}
+ h2{font-size:1rem;margin:10px 0;color:var(--accent)}
+ .themeHead{display:flex;align-items:center;gap:8px;margin:10px 0}
+ .themeHead h2{flex:1;margin:0}
+ .caseItem{background:var(--card);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+ .caseItem .t{flex:1;cursor:pointer;font-size:.95rem}
+ .caseItem .t small{display:block;color:var(--muted);font-size:.72rem;margin-top:2px}
+ .iconbtn{background:var(--card2);border:none;color:var(--txt);border-radius:8px;padding:8px 10px;cursor:pointer;font-size:.85rem}
+ .iconbtn.danger{color:var(--danger)}
+ .bigbtn{padding:13px;width:100%;border:none;border-radius:12px;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:8px}
+ .primary{background:var(--accent);color:#04121f}
+ .green{background:var(--accent2);color:#04121f}
+ .ghost{background:var(--card);color:var(--txt)}
+ .danger-btn{background:transparent;border:1px solid var(--danger);color:var(--danger)}
+ label{display:block;font-size:.78rem;color:var(--muted);margin:12px 0 4px}
+ input[type=text],textarea,select{width:100%;background:var(--card);color:var(--txt);border:1px solid #2a3348;border-radius:10px;padding:10px;font-size:.9rem;font-family:inherit}
+ textarea{min-height:140px;line-height:1.45}
+ .rep{background:var(--card);border-radius:12px;padding:11px 13px;margin-bottom:7px;line-height:1.45;font-size:.93rem;border-left:4px solid transparent;position:relative;padding-right:44px}
+ .rep.a{border-left-color:var(--accent)}
+ .rep.b{border-left-color:var(--accent2)}
+ .rep .who{font-size:.68rem;font-weight:700;letter-spacing:.5px;color:var(--muted);display:block;margin-bottom:3px}
+ .rep.hiddenTxt .txt{filter:blur(6px);user-select:none}
+ .rep.playing{outline:2px solid var(--accent);background:var(--card2)}
+ .rep.startLine{outline:2px dashed var(--accent2)}
+ .repBadge{display:inline-block;background:var(--accent2);color:#04121f;border-radius:6px;padding:1px 7px;font-size:.7rem;font-weight:800;margin-right:6px;vertical-align:middle}
+ .autoBar{display:flex;gap:8px;align-items:center;background:var(--card2);border-radius:12px;padding:10px 12px;margin:8px 0;font-size:.85rem}
+ .autoBar button{border:none;border-radius:8px;padding:8px 14px;background:var(--accent);color:#04121f;font-weight:700;cursor:pointer}
+ .autoBar label{margin:0;display:flex;align-items:center;gap:6px;color:var(--txt);font-size:.82rem;cursor:pointer}
+ .notesBox{background:#1f2a1f;border:1px solid #3a4a3a;border-radius:12px;padding:12px;margin-top:14px}
+ .notesBox h3{font-size:.85rem;color:var(--accent2);margin-bottom:6px}
+ .notesBox textarea{min-height:110px;background:#16201a;border-color:#3a4a3a}
+ .notesBox .saved{font-size:.7rem;color:var(--muted);margin-top:4px;text-align:right}
+ .rep .spk{position:absolute;top:8px;right:8px;background:var(--card2);border:none;border-radius:6px;color:var(--txt);padding:4px 8px;cursor:pointer;font-size:.8rem}
+ .exo{background:var(--card2);border-radius:12px;padding:14px;font-size:.92rem;line-height:1.6;margin-bottom:10px}
+ .hint{font-size:.78rem;color:var(--muted);margin:8px 0}
+ .backbar{display:flex;gap:8px;margin-bottom:10px}
+ .backbar button{padding:8px 14px;border-radius:10px;border:none;background:var(--card);color:var(--txt);cursor:pointer}
+ audio{width:100%;margin:8px 0}
+ .badge{display:inline-block;background:var(--card2);border-radius:6px;padding:2px 8px;font-size:.7rem;color:var(--warn);margin-left:6px}
+ .rubrik{color:var(--warn);font-size:.85rem;margin:14px 0 6px;font-weight:700}
+ .stitle{color:var(--accent);font-size:.9rem;margin:16px 0 6px;font-weight:800;letter-spacing:.3px;border-bottom:1px solid var(--card2);padding-bottom:3px}
+ .footerTools{max-width:760px;margin:18px auto;padding:0 12px;display:flex;gap:8px}
+ .footerTools button{flex:1;padding:9px;border:none;border-radius:10px;background:var(--card);color:var(--muted);font-size:.75rem;cursor:pointer}
+ /* Marquage texte 4 couleurs */
+ :root{--mk1:#ffd54f;--mk2:#81c784;--mk3:#4dd0e1;--mk4:#f48fb1;--mk5:#ffb74d;--mk6:#b39ddb;--mk7:#e57373}
+ body[data-theme="light"]{--mk1:#a06a00;--mk2:#2e7d32;--mk3:#00697c;--mk4:#ad2c5a;--mk5:#c25e00;--mk6:#5e35b1;--mk7:#c62828}
+ .mk{font-weight:700;cursor:pointer}
+ .mk1{color:var(--mk1)} .mk2{color:var(--mk2)} .mk3{color:var(--mk3)} .mk4{color:var(--mk4)} .mk5{color:var(--mk5)}
+ .mk6,.mk7,.mk8{font-weight:900;text-decoration:underline}
+ .catBox{background:var(--card);border-radius:12px;padding:12px;margin-top:14px}
+ .catBox h3{font-size:.85rem;color:var(--accent);margin-bottom:8px}
+ .catGroup{margin-bottom:10px}
+ .catGroup .cn{font-size:.75rem;color:var(--muted);font-weight:700;margin-bottom:4px}
+ .term{display:inline-flex;align-items:center;gap:4px;background:var(--card2);border-radius:8px;padding:4px 8px;margin:0 6px 6px 0;font-size:.88rem}
+ .term button{background:none;border:none;cursor:pointer;font-size:.8rem;padding:0}
+ .term .tw.hiddenTerm{filter:blur(6px);cursor:pointer;user-select:none}
+ .revTabs{display:flex;gap:5px;overflow-x:auto;margin:10px 0}
+ .revTabs button{padding:8px 12px;border:none;border-radius:10px;background:var(--card);color:var(--muted);cursor:pointer;white-space:nowrap;font-size:.78rem}
+ .revTabs button.active{background:var(--accent);color:#04121f;font-weight:700}
+ .banner{background:var(--card2);border-radius:12px;margin-bottom:8px;overflow:hidden}
+ .banner .bhead{display:flex;align-items:center;gap:8px;padding:10px 12px;cursor:pointer;font-size:.82rem;color:var(--muted)}
+ .banner .bbody{padding:0 12px 12px;font-size:.88rem;line-height:1.55}
+ #palette{position:fixed;display:none;z-index:99;background:var(--card2);border:1px solid var(--muted);border-radius:12px;padding:6px 8px;gap:6px;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+ #palette button{border:none;border-radius:8px;width:34px;height:34px;font-size:1rem;cursor:pointer;background:var(--card);color:var(--txt)}
+ #palette .c1{background:var(--mk1)} #palette .c2{background:var(--mk2)} #palette .c3{background:var(--mk3)} #palette .c4{background:var(--mk4)} #palette .c5{background:var(--mk5)}
+ #palette .c6{font-weight:900;text-decoration:underline}
+ #palette{max-width:96vw;flex-wrap:wrap}
+ #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--accent2);color:#04121f;padding:8px 16px;border-radius:10px;font-weight:700;font-size:.85rem;z-index:100;opacity:0;transition:opacity .25s;pointer-events:none}
+</style>
+</head>
+<body>
+<header style="position:relative">
+ <h1>🇩🇪 Deutsch Trainer — Themen</h1>
+ <div class="sub">Apprendre l'allemand par thèmes du quotidien — 100% local</div>
+ <button id="themeBtn" onclick="toggleTheme()" style="position:absolute;right:10px;top:12px;background:var(--card);border:none;border-radius:10px;padding:8px 10px;cursor:pointer;font-size:1rem">🌙</button>
+</header>
+<div id="storageBar"></div>
+<nav id="nav"></nav>
+<main id="app"></main>
+<div class="footerTools">
+ <button onclick="exportData()">💾 Exporter JSON</button>
+ <button onclick="document.getElementById('importFile').click()">📂 Importer JSON</button>
+ <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(this)">
+</div>
+<div id="palette">
+ <button class="c1" onclick="addMark(1)" title="Catégorie 1"> </button>
+ <button class="c2" onclick="addMark(2)" title="Catégorie 2"> </button>
+ <button class="c3" onclick="addMark(3)" title="Catégorie 3"> </button>
+ <button class="c4" onclick="addMark(4)" title="Catégorie 4"> </button>
+ <button class="c5" onclick="addMark(5)" title="Catégorie 5"> </button>
+ <button class="c6" onclick="addMark(6)" title="Catégorie 6 (gras)">B</button>
+ <button onclick="sendSelToNotes()" title="Envoyer aux notes">📝</button>
+ <button onclick="removeSelMark()" title="Effacer le marquage">🚫</button>
+ <button id="palTr" style="display:none" onclick="translateSel()" title="Traduire la sélection">🌐</button>
+ <button onclick="speakSel(1)" title="Lire la sélection">▶️</button>
+ <button onclick="speakSel(3)" title="Répéter la sélection ×N">🔁</button>
+</div>
+<div id="miniBar" style="display:none;position:fixed;bottom:18px;right:16px;z-index:97;background:var(--card2);border:1px solid var(--accent2);border-radius:14px;padding:8px;gap:8px;box-shadow:0 4px 16px rgba(0,0,0,.45)">
+ <button id="miniPlay" onclick="autoToggle()" style="border:none;border-radius:10px;background:var(--card);color:var(--txt);font-size:1.05rem;padding:10px 16px;cursor:pointer">▶️</button>
+ <button onclick="autoStop()" style="border:none;border-radius:10px;background:var(--card);color:var(--txt);font-size:1.05rem;padding:10px 16px;cursor:pointer">⏹️</button>
+ <button onclick="window.scrollTo({top:0,behavior:'smooth'})" style="border:none;border-radius:10px;background:var(--card);color:var(--txt);font-size:1.05rem;padding:10px 16px;cursor:pointer" title="Haut de page">⬆️</button>
+</div>
+<div id="toast"></div>
+
+<script>
+/* ================= CONFIG ================= */
+const LS_KEY='dt_data';
+let store=null, view={page:'list',themeId:null,subjectId:null,mode:null,revealed:0};
+let dirHandle=null;
+const FS_SUPPORTED = 'showDirectoryPicker' in window;
+
+function uid(){ return 'c'+Date.now()+Math.floor(Math.random()*999); }
+function defaultStore(){ return {themes:[], voice:null, settings:null}; }
+function ensureSettings(){
+ store.settings=Object.assign({rate:0.95,pause:600,autoReveal:false,twoVoices:false,voice1:null,voice2:null,theme:'dark',repeatN:3,repeatMarked:false,
+  catNames:['Verben','Nomen','Adjektive','Redemittel','Fehler','Wichtig']}, store.settings||{});
+ if(!Array.isArray(store.settings.catNames)||store.settings.catNames.length!==6)store.settings.catNames=['Verben','Nomen','Adjektive','Redemittel','Fehler','Wichtig'];
+}
+function applyTheme(){
+ document.body.setAttribute('data-theme', store.settings.theme);
+ const b=document.getElementById('themeBtn');
+ if(b)b.textContent= store.settings.theme==='light' ? '🌙' : '☀️';
+}
+function toggleTheme(){
+ store.settings.theme = store.settings.theme==='light' ? 'dark' : 'light';
+ applyTheme(); save();
+}
+function currentTheme(){ return store.themes.find(t=>t.id===view.themeId)||store.themes[0]||null; }
+function currentSubject(){ const t=currentTheme(); return t? t.subjects.find(s=>s.id===view.subjectId) : null; }
+
+/* ================= IndexedDB (secours + mémorisation du dossier) ================= */
+let db=null;
+const idbReady=new Promise(res=>{
+ const req=indexedDB.open('deutschtrainer',1);
+ req.onupgradeneeded=e=>{const d=e.target.result;
+  if(!d.objectStoreNames.contains('audios'))d.createObjectStore('audios');
+  if(!d.objectStoreNames.contains('meta'))d.createObjectStore('meta');};
+ req.onsuccess=e=>{db=e.target.result;res();};
+ req.onerror=()=>res();
+});
+function idbPut(storeN,key,val){return idbReady.then(()=>new Promise(res=>{
+ if(!db)return res(false);
+ const tx=db.transaction(storeN,'readwrite');tx.objectStore(storeN).put(val,key);
+ tx.oncomplete=()=>res(true);tx.onerror=()=>res(false);}));}
+function idbGet(storeN,key){return idbReady.then(()=>new Promise(res=>{
+ if(!db)return res(null);
+ const rq=db.transaction(storeN).objectStore(storeN).get(key);
+ rq.onsuccess=()=>res(rq.result||null);rq.onerror=()=>res(null);}));}
+function idbDel(storeN,key){return idbReady.then(()=>new Promise(res=>{
+ if(!db)return res();
+ const tx=db.transaction(storeN,'readwrite');tx.objectStore(storeN).delete(key);
+ tx.oncomplete=()=>res();}));}
+
+/* ================= DOSSIER (File System Access API) ================= */
+async function pickFolder(){
+ try{
+  dirHandle=await window.showDirectoryPicker({mode:'readwrite'});
+  await idbPut('meta','dirHandle',dirHandle);
+  const existing=await readDataJson();
+  if(existing){ store=existing; ensureSettings(); }
+  await writeDataJson();
+  renderStorageBar(); render();
+  showToast('✅ Dossier connecté');
+ }catch(e){ /* annulé */ }
+}
+async function restoreFolder(){
+ if(!FS_SUPPORTED)return;
+ const h=await idbGet('meta','dirHandle');
+ if(!h)return;
+ let perm=await h.queryPermission({mode:'readwrite'});
+ if(perm!=='granted'){ dirHandle=null; window._pendingHandle=h; return; }
+ dirHandle=h;
+ const d=await readDataJson();
+ if(d)store=d;
+}
+async function reconnectFolder(){
+ const h=window._pendingHandle;
+ if(!h)return pickFolder();
+ const perm=await h.requestPermission({mode:'readwrite'});
+ if(perm==='granted'){ dirHandle=h;
+  const d=await readDataJson(); if(d){store=d;ensureSettings();}
+  renderStorageBar(); render(); }
+}
+async function readDataJson(){
+ if(!dirHandle)return null;
+ try{
+  const fh=await dirHandle.getFileHandle('data.json');
+  const f=await fh.getFile();
+  return JSON.parse(await f.text());
+ }catch(e){ return null; }
+}
+async function writeDataJson(){
+ if(!dirHandle)return false;
+ try{
+  const fh=await dirHandle.getFileHandle('data.json',{create:true});
+  const w=await fh.createWritable();
+  await w.write(JSON.stringify(store,null,1));
+  await w.close();
+  return true;
+ }catch(e){ return false; }
+}
+async function audiosDir(){
+ return dirHandle.getDirectoryHandle('audios',{create:true});
+}
+
+/* ================= SAUVEGARDE UNIFIÉE ================= */
+async function save(){
+ localStorage.setItem(LS_KEY,JSON.stringify(store));
+ if(dirHandle) await writeDataJson();
+ renderStorageBar();
+}
+async function saveAudioFile(subjectId,file){
+ if(dirHandle){
+  try{
+   const ad=await audiosDir();
+   const name=subjectId+'_'+file.name.replace(/[^\w.\-]/g,'_');
+   const fh=await ad.getFileHandle(name,{create:true});
+   const w=await fh.createWritable(); await w.write(file); await w.close();
+   return {mode:'folder',name};
+  }catch(e){}
+ }
+ const ok=await idbPut('audios',subjectId,file);
+ return ok? {mode:'idb',name:file.name} : null;
+}
+async function getAudioFile(s){
+ if(s.audioMode==='folder' && dirHandle){
+  try{
+   const ad=await audiosDir();
+   const fh=await ad.getFileHandle(s.audioName);
+   return await fh.getFile();
+  }catch(e){}
+ }
+ return await idbGet('audios',s.id);
+}
+async function deleteAudioFile(s){
+ if(s.audioMode==='folder' && dirHandle){
+  try{ const ad=await audiosDir(); await ad.removeEntry(s.audioName); }catch(e){}
+ }
+ await idbDel('audios',s.id);
+}
+
+/* ================= CHARGEMENT ================= */
+async function boot(){
+ try{ store=JSON.parse(localStorage.getItem(LS_KEY))||null; }catch(e){}
+ if(!store){ store=defaultStore(); seedExamples(); store.v=3; localStorage.setItem(LS_KEY,JSON.stringify(store)); }
+ migrateV3();
+ ensureSettings();
+ await restoreFolder();
+ migrateV3();
+ ensureSettings();
+ if(!view.themeId && store.themes.length) view.themeId=store.themes[0].id;
+ applyTheme();
+ initVoices();
+ renderStorageBar(); render();
+}
+
+/* ================= BARRE DE STOCKAGE ================= */
+function renderStorageBar(){
+ const bar=document.getElementById('storageBar');
+ if(!FS_SUPPORTED){
+  bar.innerHTML=`<span class="dot" style="background:var(--warn)"></span>
+   Mode navigateur (IndexedDB) — pour la sauvegarde dossier, ouvre cette page dans <b>&nbsp;Chrome ou Edge&nbsp;</b> sur PC.`;
+  return;
+ }
+ if(dirHandle){
+  bar.innerHTML=`<span class="dot" style="background:var(--accent2)"></span>
+   📁 Dossier connecté : <b>&nbsp;${dirHandle.name}&nbsp;</b> (data.json + audios/)
+   <button onclick="pickFolder()">Changer</button>`;
+ }else if(window._pendingHandle){
+  bar.innerHTML=`<span class="dot" style="background:var(--warn)"></span>
+   Dossier mémorisé, autorisation requise
+   <button onclick="reconnectFolder()">🔓 Reconnecter le dossier</button>`;
+ }else{
+  bar.innerHTML=`<span class="dot" style="background:var(--warn)"></span>
+   Sauvegarde navigateur active
+   <button onclick="pickFolder()">📁 Choisir mon dossier (recommandé)</button>`;
+ }
+}
+
+/* ================= VOIX ALLEMANDES ================= */
+let deVoices=[];
+function rankVoice(v){
+ let s=0;
+ if(/google/i.test(v.name))s+=100;
+ if(/natural/i.test(v.name))s+=80;
+ if(v.localService)s+=40;
+ if(/katja|conrad|amala|killian|anna|petra|markus|hedda|vicki|helena/i.test(v.name))s+=15;
+ return s;
+}
+function initVoices(){
+ const collect=()=>{
+  deVoices=speechSynthesis.getVoices()
+   .filter(v=>v.lang&&v.lang.toLowerCase().startsWith('de'))
+   .sort((a,b)=>rankVoice(b)-rankVoice(a));
+  if(view.page==='list')render();
+ };
+ collect();
+ speechSynthesis.onvoiceschanged=collect;
+}
+function currentVoice(){
+ if(store.voice){ const v=deVoices.find(v=>v.name===store.voice); if(v)return v; }
+ return deVoices[0]||null;
+}
+let _utterQueue=[], _speaking=false, _resumeTimer=null;
+function _chunkText(txt){
+ txt=cleanTTS(txt)||txt;
+ const parts=txt.match(/[^.!?;:]+[.!?;:]?/g)||[txt];
+ const chunks=[];let cur='';
+ for(const p of parts){
+  if((cur+p).length>200){if(cur)chunks.push(cur);cur=p;}
+  else cur+=p;
+ }
+ if(cur.trim())chunks.push(cur);
+ return chunks;
+}
+function voiceByName(name){ return deVoices.find(v=>v.name===name)||null; }
+/* Mode 2 voix : 1er personnage rencontré = voix 1, les autres = voix 2 */
+function voiceForSpeaker(who,firstWho){
+ if(store.settings.twoVoices && deVoices.length>=2 && who){
+  if(who===firstWho) return voiceByName(store.settings.voice1)||currentVoice();
+  return voiceByName(store.settings.voice2)||deVoices.find(v=>v!==currentVoice())||currentVoice();
+ }
+ return currentVoice();
+}
+function _speakChunks(chunks,onAllEnd,voice){
+ speechSynthesis.cancel();
+ clearInterval(_resumeTimer);
+ const tok=_playToken; // jeton : tout stop/nouvelle lecture invalide cette file
+ setTimeout(()=>{
+  let i=0;
+  const next=()=>{
+   if(tok!==_playToken){clearInterval(_resumeTimer);return;}
+   if(i>=chunks.length){clearInterval(_resumeTimer);_speaking=false;if(onAllEnd)onAllEnd();return;}
+   const u=new SpeechSynthesisUtterance(chunks[i++]);
+   u.lang='de-DE';u.rate=store.settings?store.settings.rate:0.95;
+   const v=voice||currentVoice();if(v)u.voice=v;
+   u.onend=()=>setTimeout(next,120);
+   u.onerror=()=>setTimeout(next,120);
+   _utterQueue=[u];
+   speechSynthesis.speak(u);
+  };
+  _speaking=true;
+  next();
+  if(!/Android|iPhone|iPad/i.test(navigator.userAgent))
+   _resumeTimer=setInterval(()=>{if(_speaking&&speechSynthesis.speaking){speechSynthesis.pause();speechSynthesis.resume();}},10000);
+ },60);
+}
+function speak(txt,who,firstWho){
+ newPlay(); auto.playing=false; clearHighlights();
+ setPlayIcons(false);
+ _speakChunks(_chunkText(txt),null,voiceForSpeaker(who,firstWho));
+}
+function setVoice(name){ store.voice=name; save(); }
+function setSetting(key,val){ store.settings[key]=val; save(); }
+function settingsHTML(){
+ if(!deVoices.length)return '<p class="hint">⚠️ Aucune voix allemande détectée. Sur Windows : Paramètres → Heure et langue → ajouter Deutsch avec synthèse vocale. Sur Android : Synthèse vocale Google → données vocales Deutsch.</p>';
+ const cur=currentVoice();
+ const s=store.settings;
+ const two=s.twoVoices&&deVoices.length>=2;
+ const opts=(sel)=>deVoices.map(v=>`<option value="${v.name}" ${sel===v.name?'selected':''}>${/google/i.test(v.name)?'⭐ ':''}${v.name} ${v.localService?'· hors ligne':'· en ligne'}</option>`).join('');
+ return `<label>🔊 Voix allemande principale — ${deVoices.length} détectée(s)</label>
+ <select onchange="setVoice(this.value)">${opts(cur?cur.name:null)}</select>
+ <label>⏩ Vitesse de lecture : <b id="rateVal">${s.rate.toFixed(2)}x</b></label>
+ <input type="range" min="0.5" max="1.5" step="0.05" value="${s.rate}" style="width:100%"
+  oninput="document.getElementById('rateVal').textContent=parseFloat(this.value).toFixed(2)+'x'"
+  onchange="setSetting('rate',parseFloat(this.value))">
+ <label>⏸️ Pause entre répliques (lecture auto)</label>
+ <select onchange="setSetting('pause',parseInt(this.value))">
+  ${[["600","0,6 s"],["1000","1 s"],["2000","2 s"],["3000","3 s (shadowing)"]].map(([v,t])=>`<option value="${v}" ${s.pause==v?'selected':''}>${t}</option>`).join('')}
+ </select>
+ <details style="margin-top:14px">
+  <summary style="cursor:pointer;font-size:.78rem;color:var(--muted);padding:6px 0">🎨 Mes catégories de marquage (noms libres) ▾</summary>
+  ${CAT_EMOJI.map((e,i)=>`<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+   <span style="width:24px;text-align:center">${e}</span>
+   <input type="text" value="${(s.catNames[i]||'').replace(/"/g,'&quot;')}" placeholder="Catégorie ${i+1}"
+    onchange="store.settings.catNames[${i}]=this.value.trim()||'Catégorie ${i+1}';save()">
+  </div>`).join('')}
+ </details>
+ <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-top:14px">
+  <input type="checkbox" ${s.twoVoices?'checked':''} ${deVoices.length<2?'disabled':''}
+   onchange="setSetting('twoVoices',this.checked);render()">
+  🎭 Mode 2 voix (conversations) ${deVoices.length<2?'<span class="badge">2ᵉ voix allemande requise</span>':''}
+ </label>
+ ${two?`
+  <label>🗣️ Voix personnage 1 (1er qui parle)</label>
+  <select onchange="setSetting('voice1',this.value)">${opts(s.voice1||(cur?cur.name:null))}</select>
+  <label>🗣️ Voix personnage 2 (les autres)</label>
+  <select onchange="setSetting('voice2',this.value)">${opts(s.voice2)}</select>
+ `:''}
+ <button class="bigbtn ghost" onclick="speak('Guten Tag, ich bin die erste Stimme.','P1','P1')">▶️ Tester voix 1</button>
+ ${two?`<button class="bigbtn ghost" onclick="speak('Guten Tag, ich bin die zweite Stimme.','P2','P1')">▶️ Tester voix 2</button>`:''}`;
+}
+
+/* ===== LECTURE AUTOMATIQUE — une seule lecture à la fois (jeton), boucle, ×N par ligne ===== */
+let auto={playing:false,idx:0,rep:0,list:[],loop:false};
+let _playToken=0;
+function newPlay(){ _playToken++; _speaking=false; clearInterval(_resumeTimer); speechSynthesis.cancel(); return _playToken; }
+function clearHighlights(){ document.querySelectorAll('.rep.playing').forEach(e=>e.classList.remove('playing')); document.querySelectorAll('[id^=repb_]').forEach(e=>e.textContent=e.dataset.base||''); }
+function autoStop(){
+ newPlay(); auto.playing=false; auto.idx=0; auto.rep=0;
+ clearHighlights(); markStartLine();
+ setPlayIcons(false);
+}
+function autoPause(){
+ newPlay(); auto.playing=false;
+ setPlayIcons(false);
+}
+function setPlayIcons(playing){
+ const b=document.getElementById('autoBtn'); if(b)b.textContent=playing?'⏸️ Pause':'▶️ Lire';
+ const m=document.getElementById('miniPlay'); if(m)m.textContent=playing?'⏸️':'▶️';
+}
+function autoStart(){
+ if(!auto.list.length)return;
+ auto.playing=true; auto.rep=0;
+ setPlayIcons(true);
+ autoPlayIdx(auto.idx,newPlay());
+}
+function repsFor(item){ return item.forceReps>0?item.forceReps:1; }
+function autoPlayIdx(i,tok){
+ if(tok!==_playToken||!auto.playing)return;
+ if(i>=auto.list.length){
+  if(auto.loop && auto.list.length){ auto.idx=0; auto.rep=0; setTimeout(()=>autoPlayIdx(0,tok),store.settings.pause||600); return; }
+  auto.playing=false; auto.idx=0; auto.rep=0; clearHighlights();
+  setPlayIcons(false);
+  return;
+ }
+ auto.idx=i;
+ clearHighlights();
+ const el=document.getElementById('auto_'+i);
+ if(el){ el.classList.add('playing'); el.scrollIntoView({block:'center',behavior:'smooth'}); }
+ const item=auto.list[i];
+ if(item.forceReps===-1){ setTimeout(()=>autoPlayIdx(i+1,tok),60); return; } // 🔇 sautée
+ const total=repsFor(item);
+ const badge=document.getElementById('repb_'+i);
+ if(badge&&total>1)badge.textContent=(auto.rep+1)+'/'+total;
+ _speakChunks(_chunkText(item.text),()=>{
+  if(tok!==_playToken||!auto.playing)return;
+  auto.rep++;
+  const pause=store.settings.pause||600;
+  if(auto.rep<total){ setTimeout(()=>autoPlayIdx(i,tok),Math.min(pause,800)); }
+  else{ auto.rep=0; setTimeout(()=>autoPlayIdx(i+1,tok),pause); }
+ },voiceForSpeaker(item.who,item.first));
+}
+function autoToggle(){ auto.playing? autoPause() : autoStart(); }
+/* Tap sur une ligne : point de départ (à l'arrêt) ou saut (en lecture) */
+function autoJump(i){
+ if(auto.playing){ auto.rep=0; auto.idx=i; autoPlayIdx(i,newPlay()); auto.playing=true; }
+ else{ auto.idx=i; auto.rep=0; markStartLine(); showToast('▶️ Départ : ligne '+(i+1)); }
+}
+function markStartLine(){
+ document.querySelectorAll('.rep.startLine').forEach(e=>e.classList.remove('startLine'));
+ if(auto.idx>0){ const el=document.getElementById('auto_'+auto.idx); if(el)el.classList.add('startLine'); }
+}
+function loopToggle(){ auto.loop=!auto.loop; const b=document.getElementById('loopBtn'); if(b)b.textContent='🔁 Boucle : '+(auto.loop?'ON':'OFF'); }
+/* ×N PAR LIGNE (mémorisé par contenu, cycle OFF→2→3→5) */
+function cycleLineRep(i){
+ const c=currentSubject(); if(!c)return;
+ const item=auto.list[i]; if(!item)return;
+ c.reps=c.reps||{};
+ const cur=c.reps[item.text]||0;
+ const next={0:2,2:3,3:5,5:-1,'-1':0}[cur]??0;
+ if(next)c.reps[item.text]=next; else delete c.reps[item.text];
+ save(); render();
+}
+/* Lire / répéter la sélection (stoppe toute lecture en cours) */
+function speakSel(times){
+ if(!_selText)return;
+ const t=_selText;
+ hidePalette(); window.getSelection().removeAllRanges();
+ const tok=newPlay();
+ auto.playing=false; clearHighlights();
+ let k=0;
+ const once=()=>{ if(tok!==_playToken)return;
+  _speakChunks(_chunkText(t),()=>{ k++; if(k<times&&tok===_playToken)setTimeout(once,500); },currentVoice()); };
+ once();
+}
+
+/* ===== TRADUCTION LOCALE CHROME (de→fr, éphémère, jamais sauvegardée) ===== */
+const TR_AVAILABLE = ('Translator' in self);
+let _translator=null;
+async function getTranslator(){
+ if(!TR_AVAILABLE)return null;
+ if(_translator)return _translator;
+ try{ _translator=await Translator.create({sourceLanguage:'de',targetLanguage:'fr'}); }
+ catch(e){ return null; }
+ return _translator;
+}
+async function trText(t){
+ const tr=await getTranslator();
+ if(!tr)return null;
+ try{ return await tr.translate(t); }catch(e){ return null; }
+}
+async function translateSel(){
+ if(!_selText)return;
+ const t=_selText;
+ let box=document.getElementById('trBox');
+ if(!box){
+  box=document.createElement('div'); box.id='trBox';
+  box.style.cssText='position:fixed;z-index:98;max-width:86vw;background:var(--card2);border:1px solid var(--accent);border-radius:12px;padding:10px 14px;font-size:.9rem;line-height:1.4;box-shadow:0 4px 16px rgba(0,0,0,.45)';
+  box.onclick=()=>box.remove();
+  document.body.appendChild(box);
+ }
+ try{ const r=window.getSelection().getRangeAt(0).getBoundingClientRect();
+  box.style.left=Math.max(8,Math.min(window.innerWidth-320,r.left))+'px';
+  box.style.top=Math.min(window.innerHeight-120,r.bottom+8)+'px';
+ }catch(e){ box.style.left='10vw'; box.style.bottom='80px'; }
+ box.innerHTML='🌐 …';
+ hidePalette(); window.getSelection().removeAllRanges();
+ const out=await trText(t);
+ box.innerHTML= out
+  ? '<b style="color:var(--accent)">'+esc(t)+'</b><br>🌐 '+esc(out)+'<div style="font-size:.7rem;color:var(--muted);margin-top:6px">tap pour fermer</div>'
+  : '⚠️ Traduction indisponible';
+}
+/* 🌐 réplique révélée : traduction dessous, violet italique, éphémère */
+async function trRep(btn,txt){
+ const rep=btn.closest('.rep');
+ const old=rep.querySelector('.mtr');
+ if(old){old.remove();return;} // 2e clic = masquer
+ btn.disabled=true;
+ const out=await trText(txt);
+ btn.disabled=false;
+ if(!out){showToast('⚠️ Traduction indisponible');return;}
+ const d=document.createElement('div');
+ d.className='mtr';
+ d.style.cssText='font-size:.8rem;color:var(--muted);margin-top:4px';
+ d.innerHTML='<i>🌐 '+esc(out)+'</i>'; // même style que les FR: de l'utilisateur
+ rep.appendChild(d);
+}
+/* 🌐 réplique masquée : le français remplace le flou comme consigne */
+async function trMasked(btn,txt){
+ btn.disabled=true;
+ const out=await trText(txt);
+ btn.disabled=false;
+ if(!out){showToast('⚠️ Traduction indisponible');return;}
+ const rep=btn.closest('.rep');
+ const t=rep.querySelector('.txt');
+ rep.classList.remove('hiddenTxt');
+ t.innerHTML='<i style="color:#b39ddb">🌐 '+esc(out)+' — dis-le en allemand !</i>';
+}
+
+/* ===== Traduction d'un terme : FR: de sa ligne en priorité, sinon offline ===== */
+const _trCache={};
+function frForTerm(c,term){
+ try{ const items=parseUnified(c.content||'');
+  const it=items.find(x=>x.text&&x.fr&&x.text.includes(term));
+  return it?it.fr:null;
+ }catch(e){ return null; }
+}
+async function termTranslation(c,term){
+ if(_trCache[term]!==undefined)return _trCache[term];
+ let out=null;
+ if(TR_AVAILABLE)out=await trText(term);
+ if(!out)out=frForTerm(c,term);
+ _trCache[term]=out||null;
+ return _trCache[term];
+}
+async function trTerm(btn,subjectId,term){
+ let c=null;
+ for(const t of store.themes){const f=t.subjects.find(x=>x.id===subjectId);if(f){c=f;break;}}
+ const wrap=btn.closest('.term');
+ const old=wrap.querySelector('.ttr');
+ if(old){old.remove();return;}
+ btn.disabled=true;
+ const out=await termTranslation(c||{},term);
+ btn.disabled=false;
+ const d=document.createElement('span');
+ d.className='ttr';
+ d.style.cssText='font-size:.78rem;color:var(--muted);font-style:italic;margin-left:4px';
+ d.textContent=out?('= '+out):'= (pas de traduction)';
+ wrap.appendChild(d);
+}
+/* Changer la catégorie d'un terme : réutilise la palette flottante */
+function termPalette(btn,term){
+ _selText=term;
+ const r=btn.getBoundingClientRect();
+ const pal=document.getElementById('palette');
+ pal.style.display='flex';
+ pal.style.left=Math.max(8,Math.min(window.innerWidth-300,r.left-100))+'px';
+ pal.style.top=Math.max(8,r.top-48)+'px';
+ document.getElementById('palTr').style.display=TR_AVAILABLE?'':'none';
+}
+
+/* ===== CATÉGORIES DE MARQUAGE ===== */
+const CAT_EMOJI=['🟡','🟢','🔵','🩷','🟠','⬛'];
+function catName(i){ return (store.settings.catNames&&store.settings.catNames[i-1])||('Catégorie '+i); }
+function catColor(i){ return Math.min(Math.max(1,i),6); } // anciens marquages 7/8 → gras
+function termHTML(subjectId,text,color,hidden){
+ const j=JSON.stringify(text);
+ return `<span class="term"><span class="tw mk${color} ${hidden?'hiddenTerm':''}" ${hidden?'onclick="this.classList.remove(\'hiddenTerm\')"':''}>${esc(text)}</span>`+
+  `<button onclick='event.stopPropagation();speak(${j})' title="Lire">🔊</button>`+
+  `<button onclick='event.stopPropagation();trTerm(this,"${subjectId}",${j})' title="Traduire">🌐</button>`+
+  `<button onclick='event.stopPropagation();termPalette(this,${j})' title="Changer de catégorie">🎨</button>`+
+  `<button onclick='event.stopPropagation();rmMarkByText(${j})' title="Supprimer ce marquage">🗑️</button></span>`;
+}
+function marksByCatHTML(c){
+ if(!c.marks||!c.marks.length)return '';
+ const groups={};
+ for(const m of c.marks){ const k=catColor(m.color); (groups[k]=groups[k]||[]).push(m); }
+ let html='<div class="catBox"><h3>📚 Mes marquages par catégorie</h3>';
+ for(let i=1;i<=6;i++){
+  if(!groups[i])continue;
+  html+=`<div class="catGroup"><div class="cn">${CAT_EMOJI[i-1]} ${esc(catName(i))}</div>`+
+   groups[i].map(m=>termHTML(c.id,m.text,i,false)).join('')+
+  `</div>`;
+ }
+ return html+'</div>';
+}
+
+/* ===== MARQUAGE 4 COULEURS + ENVOI NOTES (méthode par texte, zéro décalage) ===== */
+let _selText='';
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function applyMarks(txt,c){
+ let html=esc(txt);
+ if(!c||!c.marks||!c.marks.length)return html;
+ const marks=[...c.marks].sort((a,b)=>b.text.length-a.text.length);
+ for(let i=0;i<marks.length;i++){
+  const m=marks[i];
+  const needle=esc(m.text);
+  const pos=html.indexOf(needle);
+  if(pos===-1)continue;
+  const before=html.slice(0,pos);
+  if((before.match(/<span/g)||[]).length!==(before.match(/<\/span>/g)||[]).length)continue;
+  html=before+`<span class="mk mk${m.color}" onclick="event.stopPropagation();rmMarkByText(${JSON.stringify(m.text).replace(/"/g,'&quot;')})" title="Cliquer pour effacer le marquage">`+needle+'</span>'+html.slice(pos+needle.length);
+ }
+ return html;
+}
+function showToast(msg){
+ const t=document.getElementById('toast');
+ t.textContent=msg; t.style.opacity='1';
+ setTimeout(()=>{t.style.opacity='0';},1400);
+}
+function hidePalette(){ document.getElementById('palette').style.display='none'; }
+document.addEventListener('selectionchange',()=>{
+ if(view.page!=='subject'){hidePalette();return;}
+ const sel=window.getSelection();
+ const txt=sel?sel.toString().trim():'';
+ if(!txt||txt.length<2){hidePalette();return;}
+ let node=sel.anchorNode;
+ while(node&&node!==document.body){ if(node.classList&&(node.classList.contains('rep')||node.classList.contains('exo')))break; node=node.parentNode; }
+ if(!node||node===document.body){hidePalette();return;}
+ _selText=txt;
+ try{
+  const r=sel.getRangeAt(0).getBoundingClientRect();
+  const p=document.getElementById('palette');
+  p.style.display='flex';
+  document.getElementById('palTr').style.display=TR_AVAILABLE?'':'none';
+  p.style.left=Math.max(8,Math.min(window.innerWidth-260,r.left))+'px';
+  p.style.top=Math.max(8,r.top-48)+'px';
+ }catch(e){}
+});
+async function addMark(color){
+ const c=currentSubject(); if(!c||!_selText)return;
+ c.marks=c.marks||[];
+ c.marks=c.marks.filter(m=>m.text!==_selText);
+ c.marks.push({text:_selText,color});
+ hidePalette(); window.getSelection().removeAllRanges();
+ const y=window.scrollY;
+ await save(); render(); window.scrollTo(0,y);
+ showToast('🎨 Marqué');
+}
+async function rmMarkByText(t){
+ const c=currentSubject(); if(!c||!c.marks)return;
+ c.marks=c.marks.filter(m=>m.text!==t);
+ const y=window.scrollY;
+ await save(); render(); window.scrollTo(0,y);
+ showToast('🚫 Marquage effacé');
+}
+async function removeSelMark(){
+ const c=currentSubject(); if(!c||!c.marks||!_selText)return;
+ c.marks=c.marks.filter(m=>!(_selText.includes(m.text)||m.text.includes(_selText)));
+ hidePalette(); window.getSelection().removeAllRanges();
+ const y=window.scrollY;
+ await save(); render(); window.scrollTo(0,y);
+ showToast('🚫 Effacé');
+}
+async function sendSelToNotes(){
+ const c=currentSubject(); if(!c||!_selText)return;
+ c.notes=(c.notes?c.notes.replace(/\s+$/,'')+'\n':'')+_selText;
+ hidePalette(); window.getSelection().removeAllRanges();
+ await save();
+ const ta=document.getElementById('fNotes');
+ if(ta)ta.value=c.notes;
+ renderNoteLinks();
+ showToast('✅ Ajouté aux notes');
+}
+
+/* ================= EXEMPLES ================= */
+function seedExamples(){
+ const th={id:uid(),name:'Hotel',subjects:[]};
+ th.subjects.push({id:uid(),titel:'Reservierung',content:`****Begrüßung
+Gast: Guten Tag, ich möchte gern ein Zimmer reservieren.
+FR: Bonjour, je voudrais réserver une chambre.
+Rezeption: Guten Tag! Für welchen Zeitraum möchten Sie reservieren?
+FR: Bonjour ! Pour quelle période souhaitez-vous réserver ?
+Gast: Vom fünfzehnten bis zum achtzehnten August, also drei Nächte.
+FR: Du quinze au dix-huit août, donc trois nuits.
+****Zimmerwahl
+Rezeption: Einen Moment bitte... Ja, wir haben noch Zimmer frei. Möchten Sie ein Einzel- oder ein Doppelzimmer?
+FR: Un instant... Oui, nous avons encore des chambres libres. Chambre simple ou double ?
+Gast: Ein Doppelzimmer bitte, möglichst ruhig und nicht zur Straße hin.
+FR: Une chambre double s'il vous plaît, si possible calme et pas côté rue.
+Rezeption: Kein Problem. Ein Doppelzimmer zum Innenhof kostet 95 Euro pro Nacht, inklusive Frühstück.
+FR: Pas de problème. Une double côté cour coûte 95 euros la nuit, petit-déjeuner compris.
+Gast: Perfekt, dann nehme ich das Zimmer.
+FR: Parfait, je prends la chambre.`,audioMode:null,audioName:null});
+ th.subjects.push({id:uid(),titel:'Beschwerde-Brief',content:`BESCHWERDE:
+Sehr geehrte Damen und Herren,
+FR: Madame, Monsieur,
+ich habe vom 15. bis zum 18. August in Ihrem Hotel übernachtet und möchte mich hiermit über meinen Aufenthalt beschweren.
+FR: J'ai séjourné dans votre hôtel du 15 au 18 août et je souhaite par la présente me plaindre de mon séjour.
+Bei der Reservierung hatte ich ausdrücklich ein ruhiges Zimmer zum Innenhof gebucht.
+FR: Lors de la réservation, j'avais expressément réservé une chambre calme côté cour.
+Stattdessen erhielt ich ein Zimmer direkt zur Hauptstraße, in dem an Schlaf kaum zu denken war.
+FR: Au lieu de cela, j'ai reçu une chambre côté rue principale, où dormir était presque impossible.
+FORDERUNG:
+Aus diesen Gründen halte ich eine Erstattung von 30 Prozent des Zimmerpreises für angemessen.
+FR: Pour ces raisons, un remboursement de 30 pour cent du prix me semble approprié.
+Mit freundlichen Grüßen
+FR: Cordialement`,audioMode:null,audioName:null});
+ store.themes.push(th);
+}
+/* Migration v3 : contenu unique par sujet — les anciens sujets (text/dialog) sont supprimés */
+function migrateV3(){
+ if(store.v>=3)return;
+ for(const t of store.themes)t.subjects=[];
+ store.v=3;
+ if(!store.themes.some(t=>t.subjects.length)){
+  if(!store.themes.length)seedExamples();
+  else{ const tmp={themes:store.themes}; store.themes=[]; seedExamples(); store.themes=[...tmp.themes,...store.themes]; }
+ }
+}
+/* ================= PARSING UNIFIÉ (style Vorleser — aucune ligne perdue) =================
+   Nom: ...      → bulle de dialogue (nom libre, 1 réplique = 1 ligne)
+   ****Titre     → titre de section (jamais lu, jamais masqué, jamais compté)
+   ****  seul    → regroupe les lignes suivantes en UN bloc (jusqu'au prochain élément spécial)
+   MAJUSCULES:   → rubrique (jamais lue, jamais masquée)
+   FR: ...       → traduction de la ligne au-dessus
+   toute autre ligne → bloc de texte : affiché, lu, masquable (1 ligne = 1 bloc)          */
+function parseUnified(raw){
+ const lines=(raw||'').split(/\n/).map(l=>l.trim()).filter(Boolean);
+ const items=[];
+ let block=null; // regroupement **** seul
+ const pushBlock=()=>{ if(block&&block.text.trim()){block.text=block.text.trim();items.push(block);} block=null; };
+ const lastText=()=>{ for(let i=items.length-1;i>=0;i--){ if(items[i].text)return items[i]; } return null; };
+ for(const l of lines){
+  const st=l.match(/^\*{4,}\s*(.*)$/);
+  if(st){ pushBlock();
+   if(st[1].trim())items.push({title:st[1].trim()});
+   else block={text:''};
+   continue; }
+  const fr=l.match(/^FR\s*:\s*(.*)$/i);
+  if(fr){ const tgt=(block&&block.text.trim())?block:lastText(); if(tgt)tgt.fr=fr[1]; continue; }
+  if(/^[A-ZÄÖÜ .\-]{3,}:\s*$/.test(l)){ pushBlock(); items.push({rubrik:l}); continue; }
+  if(block){ block.text+=(block.text?' ':'')+l; continue; }
+  const m=l.match(/^([^:\n]{1,30}):\s*(\S.*)$/);
+  if(m && !/^\*+$/.test(m[1]) && !/^FR$/i.test(m[1].trim()) && !/https?$/i.test(m[1].trim())){
+   items.push({who:m[1].trim(),text:m[2].trim()});
+  }else{
+   items.push({text:l});
+  }
+ }
+ pushBlock();
+ return items;
+}
+function parseContent(raw){
+ const items=parseUnified(raw);
+ return {type:items.some(x=>x.who)?'dialog':'text', items};
+}
+function firstSpeaker(items){ const r=items.find(x=>x.who); return r?r.who:null; }
+/* Nettoyage TTS : symboles, émojis, numéros cerclés, tirets décoratifs — jamais prononcés */
+function cleanTTS(t){
+ return (t||'')
+  .replace(/\[_+\]/g,' ')
+  .replace(/\*+/g,' ')                                        // astérisques * ** ***
+  .replace(/[_#~^`|\\]{1,}/g,' ')                              // décor markdown & co
+  .replace(/[\u2190-\u21FF\u2200-\u22FF\u2300-\u23FF]/g,' ') // flèches, math, technique
+  .replace(/[\u2460-\u24FF\u25A0-\u25FF\u2600-\u26FF\u2700-\u27BF]/g,' ') // ①, formes, symboles, dingbats
+  .replace(/[\u2B00-\u2BFF\u2900-\u297F\uFE0F\u200D\u20E3]/g,' ')
+  .replace(/[\u{1F000}-\u{1FAFF}\u{1FB00}-\u{1FBFF}]/gu,' ')  // tous les émojis
+  .replace(/[•▪◦†‡§¶«»„“”‹›]/g,' ')
+  .replace(/\s[—–-]{1,3}(\s|$)/g,' ')                          // tirets décoratifs isolés
+  .replace(/^\s*[—–-]+\s*/,' ')
+  .replace(/\(\s*\.{2,}\s*\)/g,' ')                           // (...)
+  .replace(/\s{2,}/g,' ').trim();
+}
+
+/* ================= VUES ================= */
+function renderNav(){
+ document.getElementById('nav').innerHTML=
+  store.themes.map(t=>
+   `<button class="${view.themeId===t.id?'active':''}" onclick="goTheme('${t.id}')">${t.name}</button>`).join('')
+  +`<button class="addTheme" onclick="showThemeForm('add')">➕ Thème</button>`;
+}
+function goTheme(id){view={page:'list',themeId:id,subjectId:null,mode:null,revealed:0};render();}
+function goList(){view.page='list';view.subjectId=null;view.mode=null;render();}
+function showThemeForm(mode){view.page='themeForm';view.themeFormMode=mode;render();}
+async function submitThemeForm(){
+ const name=document.getElementById('fThemeName').value.trim();
+ if(!name){showToast('⚠️ Nom vide');return;}
+ if(view.themeFormMode==='add'){
+  const t={id:uid(),name,subjects:[]};
+  store.themes.push(t);
+  view={page:'list',themeId:t.id,subjectId:null,mode:null,revealed:0};
+ }else{
+  const t=currentTheme(); if(t)t.name=name;
+  view.page='list';
+ }
+ await save();render();showToast('✅ Enregistré');
+}
+function renderThemeForm(app){
+ const isAdd=view.themeFormMode==='add';
+ const t=currentTheme();
+ app.innerHTML=`
+ <div class="backbar"><button onclick="goList()">← Annuler</button></div>
+ <h2>${isAdd?'➕ Nouveau thème':'✏️ Renommer le thème'}</h2>
+ <label>Nom du thème</label>
+ <input type="text" id="fThemeName" value="${isAdd?'':(t?t.name.replace(/"/g,'&quot;'):'')}" placeholder="ex: Behörden, Einkaufen, Arbeit, Arzttermin...">
+ <button class="bigbtn primary" onclick="submitThemeForm()">💾 Enregistrer</button>`;
+ setTimeout(()=>{const i=document.getElementById('fThemeName');if(i)i.focus();},50);
+}
+async function deleteThemeConfirmed(){
+ const t=currentTheme();if(!t)return;
+ for(const s of t.subjects)await deleteAudioFile(s);
+ store.themes=store.themes.filter(x=>x.id!==t.id);
+ view.themeId=store.themes[0]?store.themes[0].id:null;
+ view.page='list';view.subjectId=null;view.confirmDelTheme=false;
+ await save();render();showToast('🗑️ Thème supprimé');
+}
+
+function render(){
+ autoStop(); auto.list=[]; const _tb=document.getElementById('trBox'); if(_tb)_tb.remove(); auto.loop=auto.loop||false; if(document.getElementById('palette'))hidePalette();
+ renderNav();
+ const mb=document.getElementById('miniBar');
+ if(mb)mb.style.display=(view.page==='subject'&&!view.luecken)?'flex':'none';
+ const app=document.getElementById('app');
+ if(!store.themes.length){
+  app.innerHTML=`<p class="hint">Aucun thème. Clique sur <b>➕ Thème</b> en haut pour créer ton premier thème (ex: Hotel, Behörden, Einkaufen...).</p>
+  <details style="margin-top:20px">
+   <summary style="cursor:pointer;font-size:.85rem;color:var(--accent);padding:8px 0;font-weight:700">⚙️ Réglages (voix, vitesse, catégories) ▾</summary>
+   ${settingsHTML()}
+  </details>`;
+  return;
+ }
+ if(!currentTheme()){view.themeId=store.themes[0].id;}
+ if(view.page==='themeForm'){renderThemeForm(app);return;}
+ if(view.page==='review'){renderReview(app);return;}
+ if(view.page==='list'){renderList(app);renderThemeNoteLinks();}
+ else if(view.page==='edit')renderEdit(app);
+ else if(view.page==='subject')renderSubject(app);
+ if(view.page==='list'||view.page==='edit') window.scrollTo(0,0);
+}
+
+function subjectBadges(c){
+ const b=[];
+ const t=parseContent(c.content||'').type;
+ b.push(t==='dialog'?'💬 dialogue':'📄 texte');
+ if(c.audioName)b.push('🎵 MP3');
+ return b.join(' · ');
+}
+function renderList(app){
+ const t=currentTheme();
+ const all=t.subjects;
+ const q=(view.search||'').toLowerCase();
+ const subs=q? all.filter(c=>
+   (c.titel||'').toLowerCase().includes(q)||
+   (c.content||'').toLowerCase().includes(q)||
+   (c.notes||'').toLowerCase().includes(q)) : all;
+ app.innerHTML=`<div class="themeHead">
+   <h2>📚 ${t.name} — Sujets</h2>
+   <button class="iconbtn" onclick="showThemeForm('rename')" title="Renommer le thème">✏️</button>
+   <button class="iconbtn danger" onclick="view.confirmDelTheme=true;render()" title="Supprimer le thème">🗑️</button>
+  </div>`+
+ (view.confirmDelTheme?`<div class="autoBar" style="border:1px solid var(--danger);flex-wrap:wrap">
+   ⚠️ Supprimer « ${t.name} » et ses ${all.length} sujet(s) ?
+   <button style="background:var(--danger);color:#fff" onclick="deleteThemeConfirmed()">Oui, supprimer</button>
+   <button style="background:var(--card);color:var(--txt)" onclick="view.confirmDelTheme=false;render()">Annuler</button>
+  </div>`:'')+
+ (all.length>=1?`<input type="text" value="${(view.search||'').replace(/"/g,'&quot;')}" placeholder="🔍 Rechercher un sujet (titre, contenu, notes)..." style="margin-bottom:10px"
+   oninput="view.search=this.value;renderListOnly()">`:'')+
+ `<div id="subList">`+subjectsHTML(subs,q)+`</div>
+ <button class="bigbtn green" onclick="editSubject(null)">➕ Ajouter un sujet</button>
+ <button class="bigbtn ghost" onclick="view.page='review';view.revScope='theme';view.revTab=view.revTab||1;render()">📚 Réviser mes marquages — ${t.name}</button>
+ <div class="notesBox">
+  <h3>📝 Notes du thème « ${t.name} »</h3>
+  <textarea id="fThemeNotes" placeholder="Vocabulaire général du thème, liens utiles https://..." oninput="themeNotesChanged()">${(t.notes||'')}</textarea>
+  <div id="themeNoteLinks" style="font-size:.8rem;margin-top:6px;line-height:1.6"></div>
+  <div class="saved" id="themeNotesSaved"></div>
+ </div>
+  <details style="margin-top:20px">
+   <summary style="cursor:pointer;font-size:.85rem;color:var(--accent);padding:8px 0;font-weight:700">⚙️ Réglages (voix, vitesse, catégories) ▾</summary>
+   ${settingsHTML()}
+  </details>`;
+}
+function subjectsHTML(subs,q){
+ return subs.length? subs.map(c=>`
+  <div class="caseItem">
+   <div class="t" onclick="openSubject('${c.id}')">${c.titel}
+    <small>${subjectBadges(c)} · ${c.stats&&c.stats.n?c.stats.n+'× · dernier: '+new Date(c.stats.last).toLocaleDateString('fr-FR'):'jamais travaillé'}</small></div>
+   <button class="iconbtn" onclick="moveSubject('${c.id}',-1)" title="Monter">▲</button>
+   <button class="iconbtn" onclick="moveSubject('${c.id}',1)" title="Descendre">▼</button>
+   <button class="iconbtn" onclick="editSubject('${c.id}')">✏️</button>
+   <button class="iconbtn danger" style="${view.confirmDelSub===c.id?'background:var(--danger);color:#fff':''}" onclick="deleteSubject('${c.id}')">${view.confirmDelSub===c.id?'Confirmer ?':'🗑️'}</button>
+  </div>`).join('') : `<p class="hint">${q?'Aucun sujet ne correspond à « '+q+' ».':'Aucun sujet. Ajoute ton premier sujet ↓'}</p>`;
+}
+function renderListOnly(){
+ const t=currentTheme();
+ const q=(view.search||'').toLowerCase();
+ const subs=q? t.subjects.filter(c=>
+   (c.titel||'').toLowerCase().includes(q)||
+   (c.content||'').toLowerCase().includes(q)||
+   (c.notes||'').toLowerCase().includes(q)) : t.subjects;
+ const el=document.getElementById('subList');
+ if(el)el.innerHTML=subjectsHTML(subs,q);
+}
+
+/* ===== ÉDITION (contenu unique, détection auto) ===== */
+function editSubject(id){view.editFrom=view.page;view.page='edit';view.subjectId=id;render();}
+function renderEdit(app){
+ const t=currentTheme();
+ const c=view.subjectId? t.subjects.find(x=>x.id===view.subjectId) : {titel:'',content:'',audioName:null};
+ app.innerHTML=`
+ <div class="backbar"><button onclick="backFromEdit()">← Retour</button></div>
+ <h2>${view.subjectId?'✏️ Modifier':'➕ Nouveau'} sujet — ${t.name}</h2>
+ <label>Titre du sujet</label>
+ <input type="text" id="fTitel" value="${(c.titel||'').replace(/"/g,'&quot;')}" placeholder="ex: Reservierung, Beschwerde, Termin absagen...">
+ <label>Contenu (dialogue OU texte — détection automatique)<br>
+  <span style="font-weight:400">Nom: = réplique (nom libre) · sans Nom: = texte, 1 ligne = 1 bloc Lücken · FR: = traduction · ****Titre = section · **** seul = séparer (dialogue) / regrouper (texte)</span></label>
+ <textarea id="fContent" style="min-height:280px" placeholder="Kunde: Guten Tag, ich hätte eine Frage...&#10;FR: Bonjour, j'aurais une question...&#10;Verkäufer: Ja gerne!&#10;&#10;— ou un texte simple, une ligne par bloc —">${c.content||''}</textarea>
+ <label>Audio MP3 (optionnel — ElevenLabs) ${c.audioName?'<span class="badge">MP3: '+c.audioName+'</span>':''}</label>
+ <input type="file" id="fAudio" accept="audio/*">
+ ${c.audioName?'<button class="bigbtn danger-btn" onclick="removeAudioFromSubject()">🗑️ Supprimer le MP3</button>':''}
+ <button class="bigbtn primary" onclick="saveSubject()">💾 Enregistrer le sujet</button>`;
+}
+async function saveSubject(){
+ const t=currentTheme();
+ const titel=document.getElementById('fTitel').value.trim();
+ const content=document.getElementById('fContent').value.trim();
+ if(!titel){showToast('⚠️ Le titre est obligatoire');return;}
+ if(!content){showToast('⚠️ Le contenu est vide');return;}
+ let c;
+ if(view.subjectId){c=t.subjects.find(x=>x.id===view.subjectId);
+  c.titel=titel;c.content=content;}
+ else{c={id:uid(),titel,content,audioMode:null,audioName:null};t.subjects.push(c);}
+ const f=document.getElementById('fAudio').files[0];
+ if(f){const r=await saveAudioFile(c.id,f);if(r){c.audioMode=r.mode;c.audioName=r.name;}}
+ await save();
+ openSubject(c.id); // retour direct au tableau de bord du sujet
+}
+function backFromEdit(){
+ if(view.editFrom==='subject'&&view.subjectId)openSubject(view.subjectId);
+ else goList();
+}
+async function removeAudioFromSubject(){
+ const c=currentSubject();
+ if(c){await deleteAudioFile(c);c.audioMode=null;c.audioName=null;await save();render();showToast('🗑️ MP3 supprimé');}
+}
+async function moveSubject(id,dir){
+ const t=currentTheme();
+ const i=t.subjects.findIndex(x=>x.id===id);
+ const j=i+dir;
+ if(i<0||j<0||j>=t.subjects.length)return;
+ [t.subjects[i],t.subjects[j]]=[t.subjects[j],t.subjects[i]];
+ await save();render();
+}
+async function deleteSubject(id){
+ if(view.confirmDelSub!==id){view.confirmDelSub=id;render();setTimeout(()=>{if(view.confirmDelSub===id){view.confirmDelSub=null;render();}},4000);return;}
+ const t=currentTheme();
+ const c=t.subjects.find(x=>x.id===id);
+ if(c)await deleteAudioFile(c);
+ t.subjects=t.subjects.filter(x=>x.id!==id);
+ view.confirmDelSub=null;
+ await save();render();showToast('🗑️ Sujet supprimé');
+}
+
+/* ===== TABLEAU DE BORD DU SUJET (style Vorleser) ===== */
+function openSubject(id){view.page='subject';view.subjectId=id;view.luecken=false;view.revealed=0;render();window.scrollTo(0,0);}
+function toggleLuecken(on){
+ view.luecken=on; view.revealed=0;
+ if(on){ const c=currentSubject(); c.stats={n:((c.stats&&c.stats.n)||0)+1,last:Date.now()}; save(); }
+ render();
+}
+function markedIn(c,txt){ return !!(c.marks&&c.marks.some(m=>txt.includes(m.text))); }
+async function renderSubject(app){
+ const c=currentSubject();
+ const parsed=parseContent(c.content||'');
+ const isDialog=parsed.type==='dialog';
+ let items=parsed.items;
+ if(c.oneBlock){
+  /* on garde le contenu BRUT : mise en page d'origine (sauts de ligne, titres, tout) */
+  const frs=items.filter(x=>x.fr).map(x=>x.fr);
+  const raw=(c.content||'').split(/\n/).filter(l=>!/^FR\s*:/i.test(l.trim())).join('\n');
+  items=[{text:raw, fr:frs.length?frs.join(' '):undefined, pre:true}];
+ }
+ const speakables=items.filter(x=>x.text||x.who);
+ const first=isDialog?firstSpeaker(items):null;
+ const total=speakables.length;
+ const hasFR=items.some(x=>x.fr);
+ const st=store.settings;
+ const cur=currentVoice();
+ const opts=(sel)=>deVoices.map(v=>`<option value="${v.name}" ${sel===v.name?'selected':''}>${/google/i.test(v.name)?'⭐ ':''}${v.name.slice(0,28)}</option>`).join('');
+ /* liste de lecture (mode normal) */
+ auto.list=speakables.map(x=>({text:x.text,who:x.who||null,first,forceReps:(c.reps&&c.reps[x.text])||0}));
+
+ let html=`
+ <div class="backbar"><button onclick="goList()">← Sujets</button>
+  <button onclick="editSubject('${c.id}')">✏️ Modifier</button></div>
+ <h2>${isDialog?'💬':'📄'} ${c.titel}</h2>
+ <div id="audioZone"></div>`;
+
+ /* ---- BARRE D'OPTIONS ---- */
+ html+=`<div class="autoBar" style="flex-wrap:wrap">`;
+ if(isDialog&&deVoices.length){
+  html+=`🗣️ <select style="width:auto;max-width:44%" onchange="setVoice(this.value);store.settings.voice1=this.value;save()">${opts(st.voice1||store.voice||(cur?cur.name:null))}</select>`;
+  if(deVoices.length>=2){
+   html+=`<label style="margin:0"><input type="checkbox" ${st.twoVoices?'checked':''} onchange="setSetting('twoVoices',this.checked);render()"> 2 voix</label>`;
+   if(st.twoVoices)html+=`<select style="width:auto;max-width:44%" onchange="setSetting('voice2',this.value)">${opts(st.voice2)}</select>`;
+  }
+ }else if(deVoices.length){
+  html+=`🗣️ <select style="width:auto;max-width:70%" onchange="setVoice(this.value)">${opts(store.voice||(cur?cur.name:null))}</select>`;
+ }
+ html+=`</div>
+ <div class="autoBar" style="flex-wrap:wrap">
+  ⏩ <input type="range" min="0.5" max="1.5" step="0.05" value="${st.rate}" style="width:110px"
+    onchange="setSetting('rate',parseFloat(this.value));document.getElementById('rateV').textContent=parseFloat(this.value).toFixed(2)+'x'">
+  <span id="rateV" style="font-size:.78rem">${st.rate.toFixed(2)}x</span>
+  · ⏸️ <select style="width:auto" onchange="setSetting('pause',parseInt(this.value))">
+   ${[[0,'sans pause'],[600,'0,6 s'],[1000,'1 s'],[2000,'2 s'],[3000,'3 s'],[8000,'8 s (shadowing)']].map(([v,t2])=>`<option value="${v}" ${st.pause==v?'selected':''}>${t2}</option>`).join('')}
+  </select>
+
+ </div>`;
+ if(!view.luecken){
+  html+=`<div class="autoBar" style="flex-wrap:wrap">
+   <button id="autoBtn" onclick="autoToggle()">▶️ Lire</button>
+   <button onclick="autoStop()">⏹️ Stop</button>
+   <button id="loopBtn" onclick="loopToggle()" style="background:var(--card);color:var(--txt)">🔁 Boucle : ${auto.loop?'ON':'OFF'}</button>
+   <span style="font-size:.75rem;color:var(--muted)">tap ligne = point de départ · ×N sur une ligne = la répéter</span>
+  </div>`;
+ }
+ /* ---- LÜCKEN + FR ---- */
+ html+=`<div class="autoBar" style="flex-wrap:wrap">
+  <label style="margin:0;font-weight:700"><input type="checkbox" ${view.luecken?'checked':''} onchange="toggleLuecken(this.checked)"> 🕳️ Mode Lücken</label>
+  <label style="margin:0"><input type="checkbox" ${c.oneBlock?'checked':''} onchange="currentSubject().oneBlock=this.checked;view.revealed=0;save();render()"> 🧱 Texte en un bloc</label>`;
+ if(view.luecken){
+  if(hasFR||TR_AVAILABLE)html+=`<label style="margin:0"><input type="checkbox" ${view.frHelp?'checked':''} onchange="view.frHelp=this.checked;render()"> 🇫🇷 aide (formule en allemand)</label>`;
+  html+=`<label style="margin:0"><input type="checkbox" ${st.autoReveal?'checked':''} onchange="setSetting('autoReveal',this.checked)"> 🔊 lecture à la révélation</label>`;
+ }else if(hasFR){
+  html+=`<label style="margin:0"><input type="checkbox" ${view.frHelp?'checked':''} onchange="view.frHelp=this.checked;render()"> 🇫🇷 traductions</label>`;
+ }
+ html+=`</div>`;
+
+ /* ---- CONTENU ---- */
+ let idx=0;
+ for(const it of items){
+  if(it.title){html+=`<div class="stitle">${esc(it.title)}</div>`;continue;}
+  if(it.rubrik){html+=`<div class="rubrik">${it.rubrik}</div>`;continue;}
+  const i=idx; idx++;
+  const who=it.who||null;
+  const cls=who?(who===first?'a':'b'):'a';
+  if(view.luecken){
+   const revealed=i<view.revealed;
+   const useFR=!revealed&&view.frHelp&&(it.fr||TR_AVAILABLE);
+   const frUnder=revealed&&view.frHelp&&it.fr?`<div style="font-size:.8rem;color:var(--muted);margin-top:4px"><i>🇫🇷 ${esc(it.fr)}</i></div>`:'';
+   html+=`<div class="rep ${cls} ${revealed||useFR?'':'hiddenTxt'}" style="${it.pre?'white-space:pre-line':''}">
+    ${who?`<span class="who">${esc(who.toUpperCase())}${revealed?'':useFR?' — 🇫🇷 DIS-LE EN ALLEMAND !':' — À TOI !'}</span>`:(useFR?'<span class="who">🇫🇷 DIS-LE EN ALLEMAND !</span>':'')}
+    <span class="txt">${useFR?(it.fr?'<i style="color:var(--warn)">'+esc(it.fr)+'</i>':`<i style="color:var(--warn)" class="frAuto" data-de="${esc(it.text).replace(/"/g,'&quot;')}">🌐 …</i>`):applyMarks(it.text,c)}</span>${frUnder}
+    ${revealed?`<button class="spk" onclick='event.stopPropagation();speak(${JSON.stringify(it.text)},${JSON.stringify(who)},${JSON.stringify(first)})'>🔊</button>`:''}
+   </div>`;
+   if(!revealed)break;
+  }else{
+   const frUnder=view.frHelp&&it.fr?`<div style="font-size:.8rem;color:var(--muted);margin-top:4px"><i>🇫🇷 ${esc(it.fr)}</i></div>`:'';
+   const nRep=(c.reps&&c.reps[it.text])||0;
+   const muted=nRep===-1;
+   html+=`<div class="rep ${cls}" id="auto_${i}" onclick="autoJump(${i})" style="cursor:pointer;padding-right:76px${it.pre?';white-space:pre-line':''}">
+    ${who?`<span class="who">${esc(who.toUpperCase())}</span>`:''}
+    ${muted?`<span class="repBadge" style="background:var(--muted)">🔇</span>`:nRep?`<span class="repBadge" id="repb_${i}" data-base="(×${nRep})">(×${nRep})</span>`:''}
+    <span class="txt">${applyMarks(it.text,c)}</span>${frUnder}
+    <button class="spk" onclick='event.stopPropagation();speak(${JSON.stringify(it.text)},${JSON.stringify(who)},${JSON.stringify(first)})'>🔊</button>
+    <button class="spk" style="right:44px;${muted?'background:var(--muted);color:#04121f':nRep?'background:var(--accent2);color:#04121f':''}" onclick="event.stopPropagation();cycleLineRep(${i})" title="OFF → ×2 → ×3 → ×5 → 🔇 muet (jamais lue)">${muted?'🔇':nRep?'×'+nRep:'×N'}</button>
+    ${!it.fr&&TR_AVAILABLE?`<button class="spk" style="top:44px" onclick='event.stopPropagation();trRep(this,${JSON.stringify(it.text)})'>🌐</button>`:''}
+   </div>`;
+  }
+ }
+ if(view.luecken){
+  html+= view.revealed>=total
+   ?`<button class="bigbtn green" onclick="view.revealed=0;render()">🔁 Recommencer</button>`
+   :`<button class="bigbtn primary" onclick="revealNext()">👁️ Révéler & suivant</button>`;
+ }
+
+ /* ---- NOTES + CATÉGORIES ---- */
+ html+=marksByCatHTML(c)+`<div class="notesBox">
+  <h3>📝 Mes notes — vocabulaire, erreurs, liens utiles</h3>
+  <textarea id="fNotes" placeholder="ex: die Stornierung = l'annulation&#10;https://... (les liens deviennent cliquables)"
+   oninput="notesChanged()">${(c.notes||'')}</textarea>
+  <div id="noteLinks" style="font-size:.8rem;margin-top:6px;line-height:1.6"></div>
+  <div class="saved" id="notesSaved"></div>
+ </div>`;
+ app.innerHTML=html;
+ renderNoteLinks();
+ const fa=document.querySelector('.frAuto');
+ if(fa){ trText(fa.dataset.de).then(out=>{ if(out)fa.textContent='🌐 '+out+' — dis-le en allemand !'; else fa.closest('.rep').classList.add('hiddenTxt'),fa.textContent=''; }); }
+ if(view.luecken&&view.revealed>0)scrollToCurrentRep();
+ if(c.audioName){
+  const f=await getAudioFile(c);
+  if(f)document.getElementById('audioZone').innerHTML=`<audio controls src="${URL.createObjectURL(f)}"></audio>`;
+  else document.getElementById('audioZone').innerHTML=`<p class="hint">⚠️ MP3 introuvable (dossier non connecté ?).</p>`;
+ }
+}
+function revealNext(){
+ const c=currentSubject();
+ const parsed=parseContent(c.content||'');
+ const speakables=parsed.items.filter(x=>x.text);
+ const first=parsed.type==='dialog'?firstSpeaker(parsed.items):null;
+ const it=speakables[view.revealed];
+ view.revealed++;
+ render();
+ const muted=it&&c.reps&&c.reps[it.text]===-1;
+ if(store.settings.autoReveal&&it&&!muted)speak(it.text,it.who||null,first);
+}
+
+let notesTimer=null;
+function notesChanged(){
+ const c=currentSubject();
+ if(!c)return;
+ c.notes=document.getElementById('fNotes').value;
+ const s2=document.getElementById('notesSaved');
+ if(s2)s2.textContent='…';
+ clearTimeout(notesTimer);
+ notesTimer=setTimeout(async()=>{
+  await save();
+  if(s2)s2.textContent='✅ Notes enregistrées automatiquement';
+  renderNoteLinks();
+ },800);
+}
+let themeNotesTimer=null;
+function themeNotesChanged(){
+ const t=currentTheme(); if(!t)return;
+ t.notes=document.getElementById('fThemeNotes').value;
+ const sv=document.getElementById('themeNotesSaved');
+ if(sv)sv.textContent='…';
+ clearTimeout(themeNotesTimer);
+ themeNotesTimer=setTimeout(async()=>{
+  await save();
+  if(sv)sv.textContent='✅ Notes enregistrées automatiquement';
+  renderThemeNoteLinks();
+ },800);
+}
+function renderThemeNoteLinks(){
+ const t=currentTheme();
+ const zone=document.getElementById('themeNoteLinks');
+ if(!zone||!t)return;
+ const links=extractLinks(t.notes);
+ zone.innerHTML=links.length?'🔗 '+links.map(l=>linkHTML(l,'themeNoteLinks')).join(' · '):'';
+}
+/* ===== EMBED : liens YouTube / PDF ouvrables dans la page (iframe unique) ===== */
+function embedURL(link){
+ let m=link.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([\w-]{6,})/);
+ if(m)return 'https://www.youtube.com/embed/'+m[1];
+ if(/\.pdf(?:$|[?#])/i.test(link))return link;
+ return null;
+}
+function openEmbed(link,anchorId){
+ const src=embedURL(link); if(!src)return;
+ closeEmbed();
+ const zone=document.getElementById(anchorId);
+ if(!zone)return;
+ const d=document.createElement('div');
+ d.id='embedBox';
+ d.style.cssText='margin-top:10px;position:relative';
+ d.innerHTML=`<button onclick="closeEmbed()" style="position:absolute;top:-6px;right:-6px;z-index:2;border:none;border-radius:50%;width:28px;height:28px;background:var(--danger);color:#fff;cursor:pointer;font-weight:700">✖</button>
+  <iframe src="${src.replace(/"/g,'&quot;')}" style="width:100%;aspect-ratio:16/10;border:1px solid var(--card2);border-radius:12px;background:#000" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+ zone.appendChild(d);
+ d.scrollIntoView({block:'nearest',behavior:'smooth'});
+}
+function closeEmbed(){ const e=document.getElementById('embedBox'); if(e)e.remove(); }
+function linkHTML(l,anchorId){
+ const a=`<a href="${l}" target="_blank" rel="noopener" style="color:var(--accent);word-break:break-all">${l}</a>`;
+ return embedURL(l)
+  ? a+` <button onclick='openEmbed(${JSON.stringify(l)},"${anchorId}")' title="Ouvrir dans la page" style="border:none;border-radius:6px;background:var(--card2);color:var(--txt);cursor:pointer;padding:2px 8px">▶️</button>`
+  : a;
+}
+function extractLinks(txt){
+ return (txt||'').match(/(?:https?|file):\/\/[^\s<>"')\]]+/g)||[];
+}
+function renderNoteLinks(){
+ const c=currentSubject();
+ const zone=document.getElementById('noteLinks');
+ if(!zone||!c)return;
+ const links=extractLinks(c.notes);
+ zone.innerHTML=links.length?'🔗 '+links.map(l=>linkHTML(l,'noteLinks')).join(' · '):'';
+}
+function scrollToCurrentRep(){
+ const target=document.querySelector('.rep.hiddenTxt');
+ if(target) setTimeout(()=>target.scrollIntoView({block:'center',behavior:'smooth'}),50);
+}
+
+/* ================= RÉVISION GLOBALE DES MARQUAGES ================= */
+function renderReview(app){
+ const tab=view.revTab||1;
+ const scopeTheme=view.revScope!=='all'?currentTheme():null;
+ const themes=scopeTheme?[scopeTheme]:store.themes;
+ let html=`<div class="backbar"><button onclick="goList()">← Retour</button></div>
+ <h2>📚 Réviser — ${scopeTheme?esc(scopeTheme.name):'🌍 tous les thèmes'}</h2>
+ <div class="autoBar" style="flex-wrap:wrap">
+  <button style="background:${scopeTheme?'var(--accent)':'var(--card)'};color:${scopeTheme?'#04121f':'var(--txt)'}" onclick="view.revScope='theme';render()">📚 ${esc(currentTheme()?currentTheme().name:'Thème')}</button>
+  <button style="background:${scopeTheme?'var(--card)':'var(--accent)'};color:${scopeTheme?'var(--txt)':'#04121f'}" onclick="view.revScope='all';render()">🌍 Tous les thèmes</button>
+ </div>
+ <div class="revTabs">${CAT_EMOJI.map((e,i)=>
+  `<button class="${tab===i+1?'active':''}" onclick="view.revTab=${i+1};render()">${e} ${esc(catName(i+1))}</button>`).join('')}</div>
+ <div class="autoBar" style="flex-wrap:wrap"><label><input type="checkbox" ${view.revHidden?'checked':''} onchange="view.revHidden=this.checked;render()"> 🙈 Mode caché — terme flouté${TR_AVAILABLE?' + traduction comme indice':''}, tap = révéler</label>
+ <button style="background:var(--card);color:var(--txt)" onclick="view.showExport=!view.showExport;render()">📤 Export Quizlet ${view.showExport?'▴':'▾'}</button></div>`+
+ (view.showExport?`<div class="autoBar" style="flex-wrap:wrap;border:1px solid var(--accent)">
+   <span style="font-size:.8rem">format <b>allemand///français</b> · périmètre : ${scopeTheme?esc(scopeTheme.name):'🌍 tous'}</span>
+   <button style="background:var(--card);color:var(--txt)" onclick="exportQuizlet(${tab},'copy')">📋 Copier — ${CAT_EMOJI[tab-1]} ${esc(catName(tab))}</button>
+   <button style="background:var(--card);color:var(--txt)" onclick="exportQuizlet(null,'copy')">📋 Copier — 🎨 toutes</button>
+   <button style="background:var(--card);color:var(--txt)" onclick="exportQuizlet(${tab},'file')">💾 .txt — ${CAT_EMOJI[tab-1]} ${esc(catName(tab))}</button>
+   <button style="background:var(--card);color:var(--txt)" onclick="exportQuizlet(null,'file')">💾 .txt — 🎨 toutes</button>
+  </div>`:'');
+ let any=false;
+ for(const t of themes){
+  const subs=t.subjects.map(su=>({su,marks:(su.marks||[]).filter(m=>catColor(m.color)===tab)})).filter(x=>x.marks.length);
+  if(!subs.length)continue;
+  any=true;
+  if(!scopeTheme)html+=`<div class="rubrik">📚 ${esc(t.name)}</div>`;
+  for(const {su,marks} of subs){
+   html+=`<div class="catGroup">
+    <div class="cn" style="cursor:pointer;color:var(--accent)" onclick="view.themeId='${t.id}';openSubject('${su.id}')">↗ ${esc(su.titel)}</div>`+
+    marks.map(m=>termHTML(su.id,m.text,tab,view.revHidden)).join('')+
+   `</div>`;
+  }
+ }
+ if(!any)html+=`<p class="hint">Aucun passage marqué en ${CAT_EMOJI[tab-1]} ${esc(catName(tab))} ${scopeTheme?'dans ce thème':''}. Sélectionne du texte dans un sujet pour marquer.</p>`;
+ app.innerHTML=html;
+ if(view.revHidden)fillHiddenHints(themes,tab);
+}
+/* Indices de traduction sous les termes floutés (flashcard FR → DE) */
+async function fillHiddenHints(themes,tab){
+ for(const t of themes){
+  for(const su of t.subjects){
+   for(const m of (su.marks||[])){
+    if(catColor(m.color)!==tab)continue;
+    const out=await termTranslation(su,m.text);
+    if(!out)continue;
+    document.querySelectorAll('.term .tw.hiddenTerm').forEach(el=>{
+     if(el.textContent===m.text && !el.parentElement.querySelector('.hint-fr')){
+      const d=document.createElement('span');
+      d.className='hint-fr';
+      d.style.cssText='font-size:.78rem;color:var(--warn);font-style:italic;margin-left:4px';
+      d.textContent='🇫🇷 '+out;
+      el.after(d);
+     }
+    });
+   }
+  }
+ }
+}
+/* Export Quizlet : terme[TAB]traduction (ou "ohne"), toutes catégories du périmètre courant */
+async function exportQuizlet(cat,method){
+ const scopeTheme=view.revScope!=='all'?currentTheme():null;
+ const themes=scopeTheme?[scopeTheme]:store.themes;
+ showToast('📤 Préparation…');
+ const lines=[];
+ for(const t of themes){
+  for(const su of t.subjects){
+   for(const m of (su.marks||[])){
+    if(cat&&catColor(m.color)!==cat)continue;
+    const tr=await termTranslation(su,m.text);
+    lines.push(m.text.replace(/\/{3,}/g,' ')+'///'+(tr||'ohne'));
+   }
+  }
+ }
+ if(!lines.length){showToast('⚠️ Aucun marquage à exporter');return;}
+ const txt=lines.join('\n');
+ if(method==='copy'){
+  try{ await navigator.clipboard.writeText(txt); showToast('📋 '+lines.length+' termes copiés — colle dans Quizlet'); }
+  catch(e){
+   const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta);
+   ta.select(); document.execCommand('copy'); ta.remove();
+   showToast('📋 '+lines.length+' termes copiés');
+  }
+ }else{
+  const blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='quizlet_'+(scopeTheme?scopeTheme.name.replace(/\W+/g,'_'):'alle')+(cat?'_'+catName(cat).replace(/\W+/g,'_'):'')+'.txt';
+  a.click();
+  showToast('✅ '+lines.length+' termes exportés');
+ }
+}
+
+/* ================= EXPORT / IMPORT ================= */
+function exportData(){
+ const blob=new Blob([JSON.stringify(store,null,1)],{type:'application/json'});
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(blob);
+ a.download='deutsch_trainer_'+new Date().toISOString().slice(0,10)+'.json';
+ a.click();
+}
+function importData(inp){
+ const f=inp.files[0];if(!f)return;
+ const r=new FileReader();
+ r.onload=async()=>{try{
+   const d=JSON.parse(r.result);
+   if(d.themes){store=d;ensureSettings();if(store.themes.length)view.themeId=store.themes[0].id;await save();render();showToast('✅ Import réussi');}
+   else showToast('⚠️ Fichier invalide');
+  }catch(e){showToast('⚠️ Fichier invalide');}};
+ r.readAsText(f);
+}
+
+/* ================= INIT ================= */
+boot();
+</script>
+</body>
+</html>
